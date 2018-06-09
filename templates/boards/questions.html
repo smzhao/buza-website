@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+     <link rel='stylesheet' href="{% static 'css/boards.css' %}">
+    <title>{{question.title }}</title>
+  </head>
+  <body>
+    <h1>Questions</h1>
+
+    <div class="boards">
+    {% for question in questions %}
+    <a href="{% url 'view_question' question.board.slug question.id question.slug %}" style="font-weight: bold;color: white;">
+    <div class="board">
+      <br>
+      {{ question.title }}
+      </div>
+    </a>
+    {% endfor %}
+    </div>
+  </body>
+</html>
+{% endblock %}
