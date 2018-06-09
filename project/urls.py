@@ -35,10 +35,10 @@ urlpatterns = [
     url(r'^home/', views.all_questions, name='questions'),
     # url(r'^buza/', include('boards.urls')),
     url(r'^subjects/', include('boards.urls')),
-    # REACT JS
+    # REACT JS (required js enabling)
     url(r'^react/', TemplateView.as_view(template_name='index.html')),
     # change this to 404"
-    url(r'^', auth_views.login, name='user_login'),
+    #url(r'^', auth_views.login, name='user_login'),
 ]
 
 if settings.DEBUG:

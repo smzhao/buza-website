@@ -1,13 +1,18 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
+from .forms import (
+	LoginForm, UserRegistrationForm,
+	UserEditForm, ProfileEditForm)
 from .models import Profile
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-
+from .serializers import ProfileSerializer
 # Create your views here.
 
 
@@ -105,7 +110,9 @@ def edit(request):
 			profile = Profile.objects.create(user=request.user)
 			profile.save()
 		profile_form = ProfileEditForm(instance=profile)
-	return render(request, 'accounts/edit.html', {'user_form': user_form, 'profile_form': profile_form} )
+	return render(
+		request, 'accounts/edit.html',
+		{'user_form': user_form, 'profile_form': profile_form})
 
 
 @login_required
@@ -114,3 +121,17 @@ def view(request):
 	return render(
 		request, 'accounts/edit.html',
 		{'user': request.user, 'profile': request.user.user_profile})
+
+
+@csrf_exempt
+def serializer_view_account(request):
+	if request.method == 'GET':
+		profile = request.user.user_profile
+		serializer = ProfileSerializer(profile, many=False)
+		return JsonResponse(serializer.data, safe=False)
+
+	elif request.method == 'POST':
+		data = JSONParser().parse(request)
+		serializer = ProfileSerializer(data=data)
+		return JsonResponse(serializer.data, status=202)
+	return JsonResponse(serializer.errors, status=400)

@@ -52,7 +52,7 @@ nosetests.xml
 
 # Mr Developer
 .mr.developer.cfg
-.project
+
 .pydevproject
 ve/
 /ve/
@@ -78,6 +78,7 @@ celerybeat-schedule.db
 # PyCharm / IntelliJ
 .idea/
 gem_test.db
+.pyc
 
 # test db
 gem_test.db
