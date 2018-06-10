@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from taggit.managers import TaggableManager
 from tinymce.models import HTMLField
-
+from drf_extra_fields.fields import Base64ImageField
 from rest_framework.reverse import reverse as api_reverse
 
 # Create your models here.
@@ -81,6 +81,15 @@ class Question(models.Model):
 
 	def __str__(self):
 		return self.title
+
+	def get_answers(self):
+		return self.answers.all()
+
+	def has_answers(self):
+		return self.answers.count() != 0
+
+	def get_user(self):
+		return self.user
 
 	class Meta:
 		ordering = ('created_at',)
