@@ -82,3 +82,5 @@ gem_test.db
 gem_test.db
 node_modules/
 db.sqlite3-journal
+
+*.pyc
