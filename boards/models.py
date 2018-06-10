@@ -8,7 +8,6 @@ from django.utils import timezone
 
 from taggit.managers import TaggableManager
 from tinymce.models import HTMLField
-from drf_extra_fields.fields import Base64ImageField
 from rest_framework.reverse import reverse as api_reverse
 
 # Create your models here.
@@ -50,12 +49,7 @@ class Question(models.Model):
 	user = models.ForeignKey(User, related_name='asked_by')
 	slug = models.SlugField(editable=False)
 	grade = models.IntegerField(blank=True, default=7)
-
 	tags = TaggableManager()
-
-	@property
-	def user(self):
-		return self.user
 
 	def get_api_url(self, request=None):
 		return api_reverse(
@@ -107,6 +101,9 @@ class Answer(models.Model):
 
 	class Meta:
 		ordering = ('created_at',)
+
+	def __str__(self):
+		return self.user.username + " answered: " + self.question.title
 
 
 class Comment(models.Model):

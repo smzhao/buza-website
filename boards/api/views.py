@@ -16,6 +16,9 @@ class QuestionView(generics.RetrieveUpdateDestroyAPIView):
 	def get_queryset(self):
 		return Question.objects.all()
 
+	def perform_create(self, serializer):
+		serializer.save(user=self.request.user)
+
 
 class AskQuestionView(generics.CreateAPIView):
 	"""this is the view that will be used to render, edit and delete questions"""
