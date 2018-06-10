@@ -8,6 +8,9 @@ from django.utils import timezone
 
 from taggit.managers import TaggableManager
 from tinymce.models import HTMLField
+
+from rest_framework.reverse import reverse as api_reverse
+
 # Create your models here.
 
 
@@ -46,8 +49,18 @@ class Question(models.Model):
 	updated_at = models.DateTimeField(null=True)
 	user = models.ForeignKey(User, related_name='asked_by')
 	slug = models.SlugField(editable=False)
+	grade = models.IntegerField(blank=True, default=7)
 
 	tags = TaggableManager()
+
+	@property
+	def user(self):
+		return self.user
+
+	def get_api_url(self, request=None):
+		return api_reverse(
+			"buza-api:question_view",
+			kwargs={'pk': self.pk}, request=request)
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.title)

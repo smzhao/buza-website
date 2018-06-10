@@ -24,20 +24,6 @@ def all_questions(request):
 		{'section': 'questions', 'questions': questions})
 
 
-def view_question_delete_(request, question_id, question_slug, board_name=None):
-	# we have a question, we need a board and a user
-	question = Question.objects.get(pk=question_id)
-	profile = request.user.user_profile
-	answers = []
-	if question.answers.all():
-		answers = question.answers.all()
-
-	return render(
-		request, 'boards/question_view.html',
-		{'question': question, 'board': question.board,
-			'user': question.user, 'profile': profile, 'answers': answers})
-
-
 @login_required
 def all_boards(request):
 	boards = Board.objects.all()
