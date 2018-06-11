@@ -8,7 +8,7 @@ from .serializers import (
 
 
 class QuestionView(generics.RetrieveUpdateDestroyAPIView):
-	"""this is the view that will be used to render, edit and delete questions"""
+	"""this is the view that will be used to create and view questions"""
 
 	lookup_field = 'pk'  # this is what identifies the question
 	serializer_class = QuestionSerializer  # JSON conversion

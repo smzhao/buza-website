@@ -60,8 +60,6 @@ logs/*.log
 .vscode/
 
 local.py
-/static/
-/media/
 db.sqlite3
 db.sqlite4
 docs/_build
