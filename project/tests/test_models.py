@@ -5,25 +5,18 @@ from django.test import TestCase
 from django.urls import resolve
 from django.core.urlresolvers import reverse
 
+from django.contrib.auth import get_user_model
 from project.boards.views import home
+from project.boards.models import Board, Question, Answer
+from project.accounts.models import Profile
 # Adding tests for al models.
 
-# Tests for boards models
 
+class TestProfile(TestCase):
+	"""test if users can add will be able to make their own profiles"""
 
-class HomeTests(TestCase):
-	'''test that the comeview takes the user to the right views'''
-	# has to be logged in first
+	def setUp(self):
+		user = get_user_model().objects.create_superuser(
+			username="username", email="email@buza.com", password="password")
+		self.client.login(username=user.username, password=user.password)
 
-	def test_home_view_status_code(self):
-		url = reverse('home')
-		response = self.client.get(url)
-		self.assertEquals(response.status_code, 200)
-
-	def test_home_url_resolves_home_view(self):
-		view = resolve('/')
-		self.assertEquals(view.func, home)
-
-
-class TestQuestion(TestCase):
-	"""test if users can add questions"""
