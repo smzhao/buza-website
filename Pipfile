@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 buza-website = {editable = true, path = "."}
 gunicorn = "*"
+"psycopg2" = "*"
 
 [dev-packages]
 "flake8" = "*"
