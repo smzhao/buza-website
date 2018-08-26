@@ -1,8 +1,14 @@
 """
 Base Django settings for a buza-website instance.
 """
+import os
+
 from django.urls import reverse_lazy
 
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 ROOT_URLCONF = 'buza.urls'
 
@@ -43,7 +49,7 @@ TEMPLATES = [{
         ],
 
         'libraries': {
-            'buze_tags': 'buza.templatetags.buza_tags',
+            'buza_tags': 'buza.templatetags.buza_tags',
 
         },
     },
@@ -60,3 +66,8 @@ AUTH_USER_MODEL = 'buza.User'
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 LOGIN_REDIRECT_URL = reverse_lazy('home')
+
+
+SECRET_KEY = "{{ secret_key }}"
+
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '*']
