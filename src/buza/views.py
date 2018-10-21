@@ -232,6 +232,7 @@ class QuestionCreate(QuestionModelFormMixin, generic.CreateView):
         assert author.is_authenticated, author
         question.author = author
         question.subject = self.subject
+        # default grade is the user's grade
         question.grade = author.grade
         return super().form_valid(form)
 
