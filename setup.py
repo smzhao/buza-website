@@ -11,13 +11,14 @@ with open(os.path.join(here, 'README.rst')) as f:
 setup(
     name='buza-website',
     description='buza',
+    version='0.1',
     long_description=README,
     classifiers=[
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
     ],
-    author='Ctrl Space',
+    author='Sewa, Pi',
     author_email='dev@buza.com',
     url='None',
     license='BSD',
